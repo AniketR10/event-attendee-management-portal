@@ -12,7 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowLeft, Users, Calendar, Mail } from "lucide-react";
+import { ArrowLeft, Users, Calendar, Mail, Trash2 } from "lucide-react";
+import { useDeleteAttendee } from "@/hooks/useAttendees";
 import {format} from "date-fns";
 
 
@@ -31,6 +32,7 @@ export default function EventDetailsPage() {
 
     const {data: attendees, isLoading: isLoadingAttendees} = useAttendees(eventId)
     const {mutate: register, isPending} = useRegisterAttendee(eventId)
+    const { mutate: deleteAttendee, isPending: isDeletingAttendee } = useDeleteAttendee();
 
     const form = useForm<z.infer<typeof attendeeSchema>>({
         resolver: zodResolver(attendeeSchema)
@@ -145,6 +147,21 @@ export default function EventDetailsPage() {
                         </TableCell>
                         <TableCell className="text-right text-xs text-gray-400">
                           {format(new Date(attendee.createdAt), "MMM d, h:mm a")}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-red-500 hover:text-red-700 hover:bg-red-50 hover: cursor-pointer"
+                            onClick={() => {
+                              if(confirm("Remove this attendee?")) {
+                                  deleteAttendee({ attendeeId: attendee.id });
+                              }
+                            }}
+                            disabled={isDeletingAttendee}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}

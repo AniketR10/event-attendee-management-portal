@@ -20,6 +20,24 @@ export function useAttendees(eventId: string) {
     });
 }
 
+export function useDeleteAttendee() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({attendeeId}: {attendeeId: string}) => {
+            await axios.delete(`/api/attendees/${attendeeId}`)
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["attendees"]});
+            queryClient.invalidateQueries({queryKey: ["events"]});
+            toast("attendee removed")
+        },
+        onError: () => {
+            toast("could not remove the attendee")
+        }
+    })
+}
+
 export function useRegisterAttendee(eventId: string) {
     const queryClient = useQueryClient();
     

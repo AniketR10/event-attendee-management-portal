@@ -34,7 +34,7 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Event Dashboard</h1>
           <p className="text-muted-foreground mt-1">Manage your company events and registrations.</p>
         </div>
-        <Button onClick={() => setIsModalOpen(true)} size="lg" className="shrink-0">
+        <Button onClick={() => setIsModalOpen(true)} size="lg" className="shrink-0 hover:cursor-pointer">
           <Plus className="mr-2 h-4 w-4" /> Create Event
         </Button>
       </div>

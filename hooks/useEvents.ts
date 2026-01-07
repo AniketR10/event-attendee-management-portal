@@ -29,6 +29,24 @@ export function useEvents() {
     });
 }
 
+//delete event
+export function useDeleteEvent(eventId: string) {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (eventId: string) => {
+            await axios.delete(`/api/events/${eventId}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["events"]});
+            toast("event successfully deleted!")
+        },
+        onError: () => {
+            toast("could not delete event")
+        }
+    })
+}
+
 // create event
 export function useCreateEvent() {
     const queryClient = useQueryClient();
