@@ -13,7 +13,7 @@ const formSchema = z.object({
     date: z.string().refine((val) => !isNaN(Date.parse(val)), {
         message: "Invalid date",
     }),
-    capacity: z.coerce.number<number>().min(5, "Capacity must be alteast 1")
+    capacity: z.coerce.number<number>().min(1, "Capacity must be alteast 1")
 });
 
 export function CreateEventModal({

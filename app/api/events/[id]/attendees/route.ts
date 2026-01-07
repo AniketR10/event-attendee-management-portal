@@ -9,11 +9,12 @@ const regiterAttendeeSchema = z.object({
 
 export async function GET(
     req: Request,
-    {params}: {params: {id: string}}
+    {params}: {params: Promise<{id: string}>}
 ) {
     try {
+            const {id} = await params;
         const attendees = await prisma.attendee.findMany({
-            where: {eventId: params.id},
+            where: {eventId: id},
             orderBy: {createdAt: 'desc'},
         });
         return NextResponse.json(attendees);
@@ -24,11 +25,12 @@ export async function GET(
 
 export async function POST(
     req:Request,
-    {params}: {params: {id: string}}
+    {params}: {params: Promise<{id: string}>}
 ) {
     try {
+        const {id} = await params;
         const body = await req.json();
-        const eventId = params.id;
+        const eventId = id;
 
         const validation = regiterAttendeeSchema.safeParse(body);
         if(!validation.success){
