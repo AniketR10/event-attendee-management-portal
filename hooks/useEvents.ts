@@ -46,7 +46,7 @@ export function useCreateEvent() {
             queryClient.setQueryData<Event[]>(["events"], (old = []) =>[
                 ...old, {
                     ...newEvent,
-                    id: "temp-id-" + Math.random(),
+                    id: "id-" + Math.random(),
                     date: newEvent.date.toISOString(),
                     _count: {attendees: 0}
                 },

@@ -6,7 +6,7 @@ const createEventSchema = z.object({
     title: z.string().min(3, "Title must of atleast 3 characters"),
     description: z.string().optional(),
     date: z.string().transform((str) => new Date(str)),
-    capacity: z.number().min(1, "Capacity must be atleast 1"),
+    capacity: z.number().min(5, "Capacity must be atleast 1"),
 });
 
 export async function GET() {
