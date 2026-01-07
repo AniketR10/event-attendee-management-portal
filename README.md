@@ -1,5 +1,7 @@
 # Event & Attendee Management Portal
 ![home image sample](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
 A full-stack dashboard for managing corporate events and attendee registrations. Built with a focus on **User Experience (UX)**, **Data Integrity**, and **Performance**.
 
 ## 🚀 Features
